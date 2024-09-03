@@ -20,7 +20,7 @@ router.post('/create', async(req,res)=> {
       let owner = await ownerModel.create({
         fullName,
         email,
-        password
+        password 
       });
       console.log(owner);
       
