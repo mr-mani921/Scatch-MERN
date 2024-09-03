@@ -1,5 +1,6 @@
 const userModel = require("../models/user"); //Getting user model for db operations
 const jwt = require("jsonwebtoken");
+const bcrypt = require('bcrypt');
 require("dotenv").config();//To get env variables
 const {generateToken} = require('../utils/generateToken')
 
@@ -24,4 +25,22 @@ exports.registerUser = async (req, res) => {
     console.log(err.message);
   }
 }
-//worked absolutely fine till here
+
+exports.loginUser = async(req,res) => {
+  const {email,password} = req.body;
+  let user = await userModel.findOne({email});
+  if(!user) {
+    console.log("need to signIn first");
+    return res.status(401).send("Email or Password Incoorect");
+  }
+
+  let isMatch = await user.comparePasswords(password)
+  console.log(isMatch);
+  if(isMatch === true) {
+    const token = generateToken(user);
+    res.cookie('token',token);
+    res.redirect('/products/shop');
+  } else {
+    res.status(501).send('email or password incorrect');
+  }
+}

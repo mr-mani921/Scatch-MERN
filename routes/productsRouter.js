@@ -10,8 +10,8 @@ router.get('/', (req,res)=> {
     res.send("Its Working")
 });
 
-router.get('/shop', (req,res)=> {
-    let error = req.flash('error'+res.statusCode);
+router.get('/shop', isloggedIn , (req,res)=> {
+    let error = req.flash('error');
     res.redirect('/');
 })
 
