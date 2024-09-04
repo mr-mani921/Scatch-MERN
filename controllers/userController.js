@@ -9,8 +9,8 @@ exports.registerUser = async (req, res) => {
     const { email, fullName, password } = req.body;
     let user = await userModel.findOne({ email: email });
     if (user) {
-      console.log("Already a user");
-      return res.status(401).send("You Already have an account with the same email");
+      req.flash('error','You Already have an account with the same email')
+      return res.redirect('/');
     }
     let newUser = await userModel.create({
       fullName,
@@ -30,17 +30,17 @@ exports.loginUser = async(req,res) => {
   const {email,password} = req.body;
   let user = await userModel.findOne({email});
   if(!user) {
-    console.log("need to signIn first");
-    return res.status(401).send("Email or Password Incoorect");
+    req.flash('error',"Email or Password Incoorect");
+    return res.redirect('/');
   }
 
   let isMatch = await user.comparePasswords(password)
-  console.log(isMatch);
   if(isMatch === true) {
     const token = generateToken(user);
     res.cookie('token',token);
     res.redirect('/products/shop');
   } else {
-    res.status(501).send('email or password incorrect');
+    req.flash('error','email or password incorrect');
+    res.redirect('/');
   }
 }

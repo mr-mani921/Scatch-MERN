@@ -14,6 +14,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 
 require("dotenv").config();
+
 //Setting Middlewares.
 app.set("view engine", "ejs");
 app.use(
@@ -21,7 +22,7 @@ app.use(
     secret: process.env.EXPRESS_SESSION_SECRET,
     resave: false,
     saveUninitialized: false, // Or true, depending on your needs
-    cookie: { secure: true, httpOnly: true },
+    cookie: { secure: false },
   })
 );
 app.use(flash());
@@ -29,6 +30,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+
 
 //Routes.
 
