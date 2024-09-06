@@ -35,7 +35,7 @@ exports.loginOwner = async (req, res) => {
       let isMatch = await owner.comparePasswords(password);
       if (isMatch) {
         req.flash('success','Hey admin');
-        return res.redirect('owners/adminpanel');
+        return res.redirect('/owners/adminpanel');
       }
       req.flash("error", "email or password incorrect");
       res.redirect("/owners/login");

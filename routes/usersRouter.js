@@ -9,6 +9,10 @@ router.get('/', (req,res)=> {
 
 router.post('/register', registerUser);
 router.post('/login',loginUser);
+// router.get('/addProduct', addPrdToCart)
+router.get('/cart',(req,res)=> {
+    res.render('cart');
+})
 
 
 //Exporting the routes to import it in app.js
