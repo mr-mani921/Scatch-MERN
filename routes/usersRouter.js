@@ -1,18 +1,24 @@
 //Importing express and router to handle specific routes coming from app.js
 const express = require('express');
 const router = express.Router();
-const {registerUser,loginUser} = require("../controllers/userController.js");
+const userModel = require('../models/user.js'); // Imports the user model to interact with the User collection(userSchema and methods) in the database
+const {decodeToken} = require('../utils/decodeToken.js');// A utility that decodes the token parsed as a cookie because it contains user info.
+const {registerUser,loginUser, addPrdToCart} = require("../controllers/userController.js");
 
-router.get('/', (req,res)=> {
-    res.send("Its Working");
-})
+// Routes 
 
+// Calling methods to handle these routes
 router.post('/register', registerUser);
 router.post('/login',loginUser);
-// router.get('/addProduct', addPrdToCart)
-router.get('/cart',(req,res)=> {
-    res.render('cart');
-})
+router.post('/addProduct', addPrdToCart);
+
+router.get('/cart',async(req,res)=> {
+    let data = decodeToken(req.cookies.token); //using util func for decoding the token and getting the data from it.
+    let user = await userModel.findOne({email:data.email});
+    await user.populate('cart'); //                            (9)
+    let cartProducts = user.cart;
+    res.render('cart',{cartProducts}); // rendering the cart.ejs file and providing it the users cart info.
+});
 
 
 //Exporting the routes to import it in app.js

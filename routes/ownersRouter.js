@@ -3,7 +3,8 @@ const express = require("express");
 const router = express.Router();
 const { registerOwner } = require("../controllers/ownerController.js");
 const { loginOwner } = require("../controllers/ownerController.js");
-const productModel = require("../models/product.js");
+const productModel = require("../models/product.js"); // Imports the owner model to interact with the owner collection(userSchema and methods) in the database.
+
 
 //Setting routes that will be only available in development enviroment.
 

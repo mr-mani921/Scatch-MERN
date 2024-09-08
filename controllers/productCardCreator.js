@@ -1,5 +1,6 @@
 const productModel = require('../models/product')
 
+// func for creating a new product with setting up the its info entered by owner.
 exports.setPrdInfo = async(req,res) => {
     let {name,price,discount,bgColor,panelColor,textColor} = req.body;   
     
