@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken') //                         (12)
 
-exports.decodeToken = function(token) {
-    return decodedData = jwt.verify(token, process.env.JWT_KEY);//requires the key or secret that was used for encrypting/coding the token.
+exports.decodeToken = function(token, secretkey) {
+    return decodedData = jwt.verify(token, secretkey);//requires the key or secret that was used for encrypting/coding the token.
 } 

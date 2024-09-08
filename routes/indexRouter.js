@@ -2,8 +2,10 @@
 const express = require("express");
 const router = express.Router();//                             (8)
 
+
 router.get("/", (req, res) => {
-  const error = req.flash("error");// saving error in flash session. To retrieve it any other file and use it like here we use it in "index.ejs".
+  res.clearCookie('token'); // will remove the token everytime when we redirected to the login page.
+  const error = req.flash("error");// getting the message/error stored in flash session. And handing over it to "index.ejs" to be displayed there.
   res.render("index", { error });
 });
 

@@ -1,7 +1,7 @@
 const userModel = require("../models/user"); //Getting user model for db operations
 require("dotenv").config(); //To get env variables
-const { generateToken } = require("../utils/generateToken");// util func for generate token to add it in cookie.
-const { decodeToken } = require("../utils/decodeToken");// util func for decode the token to get the info stored in it.
+const { genUserToken } = require("../utils/generateToken"); // util func for generate token to add it in cookie.
+const { decodeToken } = require("../utils/decodeToken"); // util func for decode the token to get the info stored in it.
 
 exports.registerUser = async (req, res) => {
   try {
@@ -19,31 +19,39 @@ exports.registerUser = async (req, res) => {
       password,
     });
     //and generate token and stick it as a cookie
-    let token = generateToken(newUser);
-    res.cookie("token", token, { httpOnly: true });
+    const token = genUserToken(newUser);
+    res.cookie("token", token, { httpOnly: true, secure: true });
     res.redirect(302, "/products/shop");
   } catch (err) {
-    res.status(500).send("Server Error");
     console.log(err.message);
+    req.flash('error',"Something went wrong Please try again later");
+    res.redirect('/');
   }
 };
 
 exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
-  let user = await userModel.findOne({ email });
-  //checking if the email entered by the user have any account or not otherwise they have to signUp/register first
-  if (!user) {
-    req.flash("error", "Email or Password Incoorect");
-    return res.redirect("/");
-  }
-  // checking if the password is correct or not by using a func.
-  let isMatch = await user.comparePasswords(password);
-  if (isMatch === true) {
-    const token = generateToken(user);
-    res.cookie("token", token);
-    res.redirect("/products/shop");
-  } else {
-    req.flash("error", "email or password incorrect");
+  try {
+    let user = await userModel.findOne({ email });
+    //checking if the email entered by the user have any account or not otherwise they have to signUp/register first
+    if (!user) {
+      req.flash("error", "Email or Password Incoorect");
+      return res.redirect("/");
+    } else {
+      // checking if the password is correct or not by using a func.
+      let isMatch = await user.comparePasswords(password);
+      if (isMatch === true) {
+        const token = genUserToken(user);
+        res.cookie("token", token, { httpOnly: true, secure: true });
+        res.redirect("/products/shop");
+      } else {
+        req.flash("error", "email or password incorrect");
+        res.redirect("/");
+      }
+    }
+  } catch (err) {
+    console.log(err.message);
+    req.flash("error", err.message);
     res.redirect("/");
   }
 };
@@ -52,7 +60,7 @@ exports.loginUser = async (req, res) => {
 exports.addPrdToCart = async (req, res) => {
   try {
     const { productId } = req.body;
-    const userData = decodeToken(req.cookies.token);
+    const userData = decodeToken(req.cookies.token, JWT_USER_KEY);
     let user = await userModel.findOne({ email: userData.email });
     await user.cart.push(productId);
     await user.save();

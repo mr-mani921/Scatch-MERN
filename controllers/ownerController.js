@@ -1,6 +1,7 @@
 const ownerModel = require("../models/ownerModel.js");
+const { genOwnerToken } = require("../utils/generateToken.js");
 
-// func for creating a new owner.
+// func for creating a new owner which will be only available in development enviroment.
 exports.registerOwner = async (req, res) => {
   try {
     let { fullName, email, password } = req.body;
@@ -38,6 +39,9 @@ exports.loginOwner = async (req, res) => {
       // if there is any owner with the same email then it will check if the password is correct or not by using the func
       let isMatch = await owner.comparePasswords(password);
       if (isMatch) {
+        let ownerId = owner._id;
+        let ownerToken = genOwnerToken(ownerId)
+        res.cookie('token2',ownerToken)
         req.flash('success','Hey admin');
         return res.redirect('/owners/adminpanel');
       }

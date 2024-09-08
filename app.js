@@ -10,19 +10,18 @@ const usersRouter = require("./routes/usersRouter.js");
 const productsRouter = require("./routes/productsRouter.js");
 const ownersRouter = require("./routes/ownersRouter.js");
 const db = require("./config/mongooseCreation.js");
-const session = require("express-session");//                  (1)
-const flash = require("connect-flash");//                      (2)
+const session = require("express-session"); //                  (1)
+const flash = require("connect-flash"); //                      (2)
 
 const path = require("path");
 const cookieParser = require("cookie-parser");
 
-require("dotenv").config();
-
 //Setting Middlewares.
+require('dotenv').config();
 
 //Sare middlewares un sb files or routes k lye bhi available hon ge jo app.js se ho kr guzarte haen.
 
-app.set("view engine", "ejs");//                               (3)
+app.set("view engine", "ejs"); //                               (3)
 app.use(
   session({
     secret: process.env.EXPRESS_SESSION_SECRET,
@@ -32,12 +31,10 @@ app.use(
   })
 );
 app.use(flash());
-app.use(express.static(path.join(__dirname, "public")));//     (4)
-app.use(express.json());//                                     (5)
-app.use(express.urlencoded({ extended: true }));//             (6)
-app.use(cookieParser());//                                     (7)
-
-
+app.use(express.static(path.join(__dirname, "public"))); //     (4)
+app.use(express.json()); //                                     (5)
+app.use(express.urlencoded({ extended: true })); //             (6)
+app.use(cookieParser()); //                                     (7)
 
 //Routes.
 
@@ -48,7 +45,7 @@ app.use("/owners", ownersRouter);
 
 app.listen(3000, (err) => {
   if (err) {
-    console.log("An error occured while listning the server"+err);
+    console.log("An error occured while listning the server" + err);
   }
   console.log("Server is running successfully");
 });
