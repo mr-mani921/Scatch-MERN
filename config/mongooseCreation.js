@@ -3,12 +3,9 @@ const config = require("config");
 const dbgr = require("debug")("development:mongoose");
 
 // Connecting to MongoDB Atlas
-const mongoURI = process.env.MONGODB_URI || config.get('MONGODB_URI');
+const mongoURI = process.env.MONGODB_URI || config.get("MONGODB_URI");
 mongoose
-  .connect(config.get("MONGODB_URI"), {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
+  .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     dbgr("Connected to MongoDB...");
   })
