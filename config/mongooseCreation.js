@@ -3,6 +3,7 @@ const config = require("config");
 const dbgr = require("debug")("development:mongoose");
 
 // Connecting to MongoDB Atlas
+const mongoURI = process.env.MONGODB_URI || config.get('MONGODB_URI');
 mongoose
   .connect(config.get("MONGODB_URI"), {
     useNewUrlParser: true,
