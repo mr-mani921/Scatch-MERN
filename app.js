@@ -33,6 +33,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: { secure: false },
+    store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI })
   })
 );
 app.use(flash());
