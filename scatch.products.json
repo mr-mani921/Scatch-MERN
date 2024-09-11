@@ -1,0 +1,78 @@
+[{
+  "_id": {
+    "$oid": "66d9e6ef1e1fa2b9e7b618fd"
+  },
+  "name": "gray trendy school bag",
+  "price": 1800,
+  "image": "827adcf429d3b066efbe.png",
+  "discount": 100,
+  "bgColor": "#DBD3D8",
+  "panelColor": "#223843",
+  "textColor": "#989FCE",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66da5c993b503a9cd77ee467"
+  },
+  "name": "Dark stylish laptop bag",
+  "price": 2000,
+  "image": "d1665de86791ad766aab.png",
+  "discount": 0,
+  "bgColor": "#949B96",
+  "panelColor": "#2C423F",
+  "textColor": "#D2D6EF",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66da5da93b503a9cd77ee46e"
+  },
+  "name": "trendy hand bag",
+  "price": 4000,
+  "image": "b9c64bf1e6c4dabaa0a7.png",
+  "discount": 240,
+  "bgColor": "#AFA060",
+  "panelColor": "#AD8350",
+  "textColor": "#764134",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66da60393b503a9cd77ee480"
+  },
+  "name": "leather stylish bag",
+  "price": 3500,
+  "image": "29c2a4a9ef28e061aa49.png",
+  "discount": 80,
+  "bgColor": "#764134",
+  "panelColor": "#2A1A1F",
+  "textColor": "#AD8350",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66da61113b503a9cd77ee484"
+  },
+  "name": "trendy hand bag",
+  "price": 4000,
+  "image": "f0d4c48ee885d46aa858.png",
+  "discount": 240,
+  "bgColor": "#D8B4A0",
+  "panelColor": "#DBD3D8",
+  "textColor": "#D77A61",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66daf56fcaa326a1dab28428"
+  },
+  "name": "great space carry bag",
+  "price": 4200,
+  "image": "4b4b354f99e189645d7b.png",
+  "discount": 50,
+  "bgColor": "#F19953",
+  "panelColor": "#C47335",
+  "textColor": "#56351E",
+  "__v": 0
+}]

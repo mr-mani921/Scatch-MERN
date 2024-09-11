@@ -15,6 +15,7 @@ const usersRouter = require("./routes/usersRouter.js");
 const productsRouter = require("./routes/productsRouter.js");
 const ownersRouter = require("./routes/ownersRouter.js");
 const db = require("./config/mongooseCreation.js");
+const MongoStore = require('connect-mongo')
 const session = require("express-session"); //                  (1)
 const flash = require("connect-flash"); //                      (2)
 
