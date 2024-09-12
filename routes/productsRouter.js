@@ -20,6 +20,8 @@ router.post("/create", upload.single("image"), setPrdInfo);
 
 router.get("/shop", auth, async (req, res) => {
   let products = await productModel.find();
+  console.log(products);
+  
   let error = req.flash("error");
   res.render("shop", { error, products });
 });
